@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gooflix</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            font-family: 'poppins',sans-serif;
+        }
+        body{
+            background-color: #000;
+        }
+        .flix {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 11%;
+       }
+       .flix img{
+            width: 21%;
+       }
+       h1 {
+            color: #fff;
+            font-size: 15px;
+            width: 63%;
+       }
+      .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 63px;
+            max-width: 1400px;
+            margin: 0 auto;
+       }
+       a.btn-back {
+            padding: 13px 23px;
+            background: linear-gradient(to bottom, #fe0772, #fc7e0c);
+            font-size: 16px;
+            width: 21%;
+            text-align: center;
+            color: #ffffff;
+            border: none;
+            border-radius: 40px;
+       }
+       @media(max-width: 830px){
+        .flix img {
+            width: 53%;
+            }
+            a.btn-back {
+            padding: 13px 23px;
+            background: linear-gradient(to bottom, #fe0772, #fc7e0c);
+            font-size: 16px;
+            width: 65%;
+            text-align: center;
+            color: #ffffff;
+            border: none;
+            border-radius: 40px;
+           }
+       }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="flix"><img src="images/logotipo.png" alt=""></div>
+        <h1>Olá, <span></span></h1>
+        <a class="btn-back" href="index.html">Back</a>
+    </div>
+    <script>
+        const dynamicText = document.querySelector("h1 span");
+const words = ["seja bem-vindo a gooflix free, neste momento o site gooflix se encontra em manutenção, estaremos disponível em breve, Obrigado!"];
+
+// Variables to track the position and deletion status of the word
+let wordIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+
+const typeEffect = () => {
+    const currentWord = words[wordIndex];
+    const currentChar = currentWord.substring(0, charIndex);
+    dynamicText.textContent = currentChar;
+    dynamicText.classList.add("stop-blinking");
+
+    if (!isDeleting && charIndex < currentWord.length) {
+        // If condition is true, type the next character
+        charIndex++;
+        setTimeout(typeEffect, 200);
+    } else if (isDeleting && charIndex > 0) {
+        // If condition is true, remove the previous character
+        charIndex--;
+        setTimeout(typeEffect, 100);
+    } else {
+        // If word is deleted then switch to the next word
+        isDeleting = !isDeleting;
+        dynamicText.classList.remove("stop-blinking");
+        wordIndex = !isDeleting ? (wordIndex + 1) % words.length : wordIndex;
+        setTimeout(typeEffect, 1200);
+    }
+}
+
+typeEffect();
+    </script>
+</body>
+</html>
